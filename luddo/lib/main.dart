@@ -1,4 +1,5 @@
-import 'dart:math'; 
+import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +14,35 @@ class LudoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: LudoGamePage(),
+      home: SplashScreen(),
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Navigate to LudoGamePage after 3 seconds
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LudoGamePage()),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Image.asset('assets/luddo.gif'), // Load your GIF here
+      ),
     );
   }
 }
@@ -152,81 +181,86 @@ class _LudoGamePageState extends State<LudoGamePage> with SingleTickerProviderSt
             end: Alignment.bottomRight,
           ),
         ),
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 50,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () => _changeBackgroundColor(Colors.red),
-                    child: CircleAvatar(backgroundColor: Colors.red, radius: 20),
-                  ),
-                  SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () => _changeBackgroundColor(Colors.green),
-                    child: CircleAvatar(backgroundColor: Colors.green, radius: 20),
-                  ),
-                  SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () => _changeBackgroundColor(Colors.blue),
-                    child: CircleAvatar(backgroundColor: Colors.blue, radius: 20),
-                  ),
-                  SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () => _changeBackgroundColor(Colors.yellow),
-                    child: CircleAvatar(backgroundColor: Colors.yellow, radius: 20),
-                  ),
-                  SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () => _changeBackgroundColor(Colors.purple),
-                    child: CircleAvatar(backgroundColor: Colors.purple, radius: 20),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Transform.rotate(
-                    angle: _diceAnimation.value * 2 * pi,
-                    child: Image.asset(
-                      'assets/dice$diceValue.png',
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Row(
+              children: [
+                Container(
+                  width: 50,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildPlayerButton(0),
-                      _buildPlayerButton(1),
+                      GestureDetector(
+                        onTap: () => _changeBackgroundColor(Colors.red),
+                        child: CircleAvatar(backgroundColor: Colors.red, radius: 20),
+                      ),
+                      SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () => _changeBackgroundColor(Colors.green),
+                        child: CircleAvatar(backgroundColor: Colors.green, radius: 20),
+                      ),
+                      SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () => _changeBackgroundColor(Colors.blue),
+                        child: CircleAvatar(backgroundColor: Colors.blue, radius: 20),
+                      ),
+                      SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () => _changeBackgroundColor(Colors.yellow),
+                        child: CircleAvatar(backgroundColor: Colors.yellow, radius: 20),
+                      ),
+                      SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () => _changeBackgroundColor(Colors.purple),
+                        child: CircleAvatar(backgroundColor: Colors.purple, radius: 20),
+                      ),
                     ],
                   ),
-                  Row(
+                ),
+                Expanded(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildPlayerButton(2),
-                      _buildPlayerButton(3),
+                      Transform.rotate(
+                        angle: _diceAnimation.value * 2 * pi,
+                        child: Image.asset(
+                          'assets/dice$diceValue.png',
+                          width: 100,
+                          height: 100,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildPlayerButton(0),
+                          _buildPlayerButton(1),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildPlayerButton(2),
+                          _buildPlayerButton(3),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: rollDice,
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                          backgroundColor: const Color.fromARGB(255, 217, 208, 234),
+                        ),
+                        child: Text(
+                          'Roll Dice',
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: rollDice,
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                      backgroundColor: const Color.fromARGB(255, 217, 208, 234),
-                    ),
-                    child: Text(
-                      'Roll Dice',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

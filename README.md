@@ -13,6 +13,10 @@ https://github.com/user-attachments/assets/cfcdb766-6e3b-4b66-9315-f43a561ba73d
 
 https://github.com/user-attachments/assets/7d3f6c05-c7ee-429f-8189-8dcb71f88b3e
 
+**Reference**:
+Apps are made with the help of chatgpt.
+
+
 **Spin Bottle**:
 <img width="960" alt="Screenshot 2024-10-19 132851" src="https://github.com/user-attachments/assets/02129710-416a-4a72-9ee4-dc31b775b465">
 
